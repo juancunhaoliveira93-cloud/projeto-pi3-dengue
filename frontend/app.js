@@ -1,0 +1,1 @@
+/* Onde Juan vai colocar a lógica de fetch para buscar os dados da API.*/

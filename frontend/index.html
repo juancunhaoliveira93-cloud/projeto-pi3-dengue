@@ -1,0 +1,97 @@
+/* Onde a Carine vai estruturar o Dashboard */
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise de Casos de Dengue no Brasil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-light">
+
+    <nav class="navbar navbar-dark bg-primary mb-4">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">Dashboard Epidemiológico - Dengue Brasil</span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section class="row mb-4">
+            <div class="col-md-12">
+                <div class="card shadow-sm p-3">
+                    <h5>Filtros de Pesquisa</h5>
+                    <div class="d-flex gap-3">
+                        <select id="filtroPeriodo" class="form-select">
+                            <option value="">Selecionar Período</option>
+                        </select>
+                        <select id="filtroLocalidade" class="form-select">
+                            <option value="">Selecionar Região/Estado</option>
+                        </select>
+                        <button id="btnFiltrar" class="btn btn-primary">Atualizar Dados</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="row mb-4 text-center">
+            <div class="col-md-4">
+                <div class="card shadow-sm p-3">
+                    <h6>Total de Casos</h6>
+                    <h2 id="kpiTotalCasos">0</h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm p-3">
+                    <h6>Taxa de Incidência</h6>
+                    <h2 id="kpiTaxaIncidencia">0%</h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm p-3">
+                    <h6>Variação Regional</h6>
+                    <h2 id="kpiVariacao">0%</h2>
+                </div>
+            </div>
+        </section>
+
+        <div class="row">
+            <div class="col-md-7 mb-4">
+                <div class="card shadow-sm p-3 h-100">
+                    <h5>Série Temporal de Casos e Notificações</h5>
+                    <canvas id="graficoTemporal"></canvas>
+                </div>
+            </div>
+
+            <div class="col-md-5 mb-4">
+                <div class="card shadow-sm p-3 h-100">
+                    <h5>Distribuição Geográfica (Incidência)</h5>
+                    <div id="mapaBrasil" style="height: 400px; background-color: #eee; display: flex; align-items: center; justify-content: center;">
+                        <p class="text-muted small">O mapa será carregado via JavaScript</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="row mb-4">
+            <div class="col-md-12">
+                <div class="card shadow-sm p-3 border-info">
+                    <h5>Módulo de Previsão de Tendências Futuras</h5>
+                    <div id="containerPrevisao">
+                        <p class="text-muted">Aguardando processamento do modelo de regressão...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="text-center py-4 text-muted">
+        <small>Projeto Integrador III - Alunos TADS FAESA</small>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+    <script src="charts.js"></script>
+</body>
+</html>
