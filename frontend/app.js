@@ -1,27 +1,27 @@
 /* Onde Juan vai colocar a lógica de fetch para buscar os dados da API.*/
 
-// app.js - Responsável pela lógica e botões
+// app.js - Atualizado para ler os novos filtros
 
-// 1. Função para atualizar os cards de texto (KPIs)
-function atualizarKPIs(total, taxa, variacao) {
-    // Esses IDs devem ser iguais aos que estão no seu index.html
-    document.getElementById('kpiTotalCasos').innerText = total.toLocaleString();
-    document.getElementById('kpiTaxaIncidencia').innerText = taxa;
-    document.getElementById('kpiVariacao').innerText = variacao + '%';
-}
-
-// 2. Lógica do Botão de Filtro
 document.getElementById('btnFiltrar').addEventListener('click', () => {
+    // 1. Captura o que o usuário selecionou nas caixas que você preencheu
     const periodo = document.getElementById('filtroPeriodo').value;
     const localidade = document.getElementById('filtroLocalidade').value;
 
-    console.log("Filtro acionado para:", localidade, periodo);
-    
-    // Por enquanto, apenas simulamos uma mudança para teste
-    // No futuro, aqui chamaremos a API do Victor
-    atualizarKPIs(5000, "150 por 100k", "+10");
-    alert("Buscando dados de " + localidade + "... (Aguardando API do Victor)");
-});
+    // 2. Verifica se o usuário selecionou algo
+    if (periodo === "" || localidade === "") {
+        alert("Por favor, selecione um período e um estado!");
+        return;
+    }
 
-// Valores iniciais ao carregar a página
-atualizarKPIs(0, 0, 0);
+    console.log(`Buscando dados reais de ${localidade} no ano de ${periodo}...`);
+    
+    // 3. Por enquanto, simulamos uma mudança nos cards
+    // Quando o Victor entregar a API, os dados virão de lá
+    if (localidade === "ES") {
+        atualizarKPIs("12.450", "310 por 100k", "+5");
+    } else {
+        atualizarKPIs("45.800", "150 por 100k", "-2");
+    }
+
+    alert(`Dados de ${localidade} para o ano ${periodo} atualizados!`);
+});

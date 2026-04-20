@@ -25,9 +25,28 @@
                     <div class="d-flex gap-3">
                         <select id="filtroPeriodo" class="form-select">
                             <option value="">Selecionar Período</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
                         </select>
                         <select id="filtroLocalidade" class="form-select">
-                            <option value="">Selecionar Região/Estado</option>
+                            <option value="">Selecionar Estado</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="BA">Bahia</option>
+                            <option value="PR">Paraná</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="RS">Rio Grande do Sul</option>
                         </select>
                         <button id="btnFiltrar" class="btn btn-primary">Atualizar Dados</button>
                     </div>
@@ -35,22 +54,22 @@
             </div>
         </section>
 
-        <section class="row mb-4 text-center">
+        <section class="row mb-4">
             <div class="col-md-4">
-                <div class="card shadow-sm p-3">
-                    <h6>Total de Casos</h6>
+                <div class="card shadow-sm p-3 text-center border-start border-primary border-4">
+                    <h6 class="text-muted">Total de Casos</h6>
                     <h2 id="kpiTotalCasos">0</h2>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card shadow-sm p-3">
-                    <h6>Taxa de Incidência</h6>
-                    <h2 id="kpiTaxaIncidencia">0%</h2>
+                <div class="card shadow-sm p-3 text-center border-start border-success border-4">
+                    <h6 class="text-muted">Taxa de Incidência</h6>
+                    <h2 id="kpiTaxaIncidencia">0</h2>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card shadow-sm p-3">
-                    <h6>Variação Regional</h6>
+                <div class="card shadow-sm p-3 text-center border-start border-warning border-4">
+                    <h6 class="text-muted">Variação (Anual)</h6>
                     <h2 id="kpiVariacao">0%</h2>
                 </div>
             </div>
@@ -91,9 +110,7 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <script src="charts.js"></script>
-
     <script src="app.js"></script>
 </body>
 </html>
