@@ -4,24 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Análise de Casos de Dengue no Brasil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    
 </head>
-<body class="bg-light">
+<body>
+    <div class="app-bg"></div>
 
-    <nav class="navbar navbar-dark bg-primary mb-4">
-        <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">Dashboard Epidemiológico - Dengue Brasil</span>
+    <header class="topbar">
+        <div class="container-xl px-4 topbar-inner">
+            <div>
+                <span class="eyebrow">Vigilância Epidemiológica</span>
+                <h1 class="brand-title">Dengue Brasil • Painel Analítico</h1>
+            </div>
+           
         </div>
-    </nav>
+    </header>
 
-    <div class="container">
-        <section class="row mb-4">
-            <div class="col-md-12">
-                <div class="card shadow-sm p-3">
-                    <h5>Filtros de Pesquisa</h5>
-                    <div class="d-flex gap-3">
-                        <select id="filtroPeriodo" class="form-select">
+    <main class="container-xl px-4 pb-5">
+        <section class="hero-grid mb-4">
+            <article class="hero-card">
+                <div class="hero-badge"> • Sobre a dengue </div>
+                <h2>A dengue faz parte de um grupo de doenças denominadas arboviroses, que se caracterizam por serem causadas por vírus transmitidos por vetores artrópodes.</h2>
+                <p>
+                    Aspectos como a urbanização, o crescimento desordenado da população, o saneamento básico deficitário e os fatores climáticos mantêm as condições favoráveis para a presença do vetor, com reflexos na dinâmica de transmissão desses arbovírus. A dengue possui padrão sazonal, com aumento do número de casos e o risco para epidemias, principalmente entre os meses de outubro de um ano a maio do ano seguinte.
+                </p>
+                <a href="https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/d/dengue" target="_blank" class="saiba-mais">
+                         Saiba mais
+                <span class="tooltip-link"></span>
+                </a>
+
+                <div class="hero-mini-grid">
+                    <div class="mini-info-card">
+                        <span class="mini-label">Cobertura</span>
+                        <strong>Brasil</strong>
+                        <small>Visão nacional e por UF</small>
+                    </div>
+                    <div class="mini-info-card">
+                        <span class="mini-label">Dados</span>
+                        <strong>Tempo real</strong>
+                        <small>Pronto para integração</small>
+                    </div>
+                    <div class="mini-info-card">
+                        <span class="mini-label">Módulo</span>
+                        <strong>Previsão</strong>
+                        <small>Tendência e alertas</small>
+                    </div>
+                </div>
+            </article>
+
+            <aside class="filter-card">
+                <div class="panel-head">
+                    <span class="section-kicker">Filtros do painel</span>
+                    <h3>Atualize a análise</h3>
+                    <p>Escolha o período e a localidade para carregar os indicadores.</p>
+                </div>
+
+                <div class="filter-stack">
+                    <div class="filter-group">
+                        <label for="filtroPeriodo">Período</label>
+                        <select id="filtroPeriodo" class="form-select custom-select">
                             <option value="">Selecionar Período</option>
                             <option value="2016">2016</option>
                             <option value="2017">2017</option>
@@ -35,80 +80,144 @@
                             <option value="2025">2025</option>
                             <option value="2026">2026</option>
                         </select>
-                        <select id="filtroLocalidade" class="form-select">
-                            <option value="">Selecionar Estado</option>
-                            <option value="ES">Espírito Santo</option>
-                            <option value="SP">São Paulo</option>
-                            <option value="RJ">Rio de Janeiro</option>
-                            <option value="MG">Minas Gerais</option>
-                            <option value="BA">Bahia</option>
-                            <option value="PR">Paraná</option>
-                            <option value="SC">Santa Catarina</option>
-                            <option value="RS">Rio Grande do Sul</option>
-                        </select>
-                        <button id="btnFiltrar" class="btn btn-primary">Atualizar Dados</button>
                     </div>
+
+                    <div class="filter-group">
+                        <label for="filtroLocalidade">Estado</label>
+                        <select id="filtroLocalidade" class="form-select custom-select">
+                            <option value="">Selecionar Estado</option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>   
+                        </select>
+                    </div>
+
+                    <button id="btnFiltrar" class="btn action-btn">Aplicar Filtros</button>
                 </div>
-            </div>
+
+                <div class="filter-note">
+                   
+                </div>
+            </aside>
         </section>
 
-        <section class="row mb-4">
-            <div class="col-md-4">
-                <div class="card shadow-sm p-3 text-center border-start border-primary border-4">
-                    <h6 class="text-muted">Total de Casos</h6>
-                    <h2 id="kpiTotalCasos">0</h2>
+        <section class="metrics-grid mb-4">
+            <article class="metric-card metric-card-primary">
+                <div class="metric-header">
+                    <span class="metric-chip">Indicador 01</span>
+                    <span class="metric-symbol">◎</span>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card shadow-sm p-3 text-center border-start border-success border-4">
-                    <h6 class="text-muted">Taxa de Incidência</h6>
-                    <h2 id="kpiTaxaIncidencia">0</h2>
+                <p class="metric-title">Total de Casos</p>
+                <h3 id="kpiTotalCasos">0</h3>
+                <p class="metric-description">Casos notificados conforme período e estado selecionados.</p>
+            </article>
+
+            <article class="metric-card metric-card-success">
+                <div class="metric-header">
+                    <span class="metric-chip">Indicador 02</span>
+                    <span class="metric-symbol">◔</span>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card shadow-sm p-3 text-center border-start border-warning border-4">
-                    <h6 class="text-muted">Variação (Anual)</h6>
-                    <h2 id="kpiVariacao">0%</h2>
+                <p class="metric-title">Taxa de Incidência</p>
+                <h3 id="kpiTaxaIncidencia">0</h3>
+                <p class="metric-description">Leitura padronizada para comparar intensidade entre localidades.</p>
+            </article>
+
+            <article class="metric-card metric-card-warning">
+                <div class="metric-header">
+                    <span class="metric-chip">Indicador 03</span>
+                    <span class="metric-symbol">↗</span>
                 </div>
-            </div>
+                <p class="metric-title">Variação Anual</p>
+                <h3 id="kpiVariacao">0%</h3>
+                <p class="metric-description">Crescimento ou redução dos casos em relação ao período anterior.</p>
+            </article>
         </section>
 
-        <div class="row">
-            <div class="col-md-7 mb-4">
-                <div class="card shadow-sm p-3 h-100">
-                    <h5>Série Temporal de Casos e Notificações</h5>
+        <section class="dashboard-layout mb-4">
+            <article class="panel-card chart-panel">
+                <div class="panel-head panel-head-inline">
+                    <div>
+                        <span class="section-kicker">Análise temporal</span>
+                        <h3>Série temporal de notificações</h3>
+                    </div>
+                    <div class="panel-tag">Leitura histórica</div>
+                </div>
+                <p class="panel-text">Área central para destacar a evolução dos casos ao longo do tempo.</p>
+                <div class="chart-shell">
                     <canvas id="graficoTemporal"></canvas>
                 </div>
-            </div>
+            </article>
 
-            <div class="col-md-5 mb-4">
-                <div class="card shadow-sm p-3 h-100">
-                    <h5>Distribuição Geográfica (Incidência)</h5>
-                    <div id="mapaBrasil" style="height: 400px; background-color: #eee; display: flex; align-items: center; justify-content: center;">
-                        <p class="text-muted small">O mapa será carregado via JavaScript</p>
+            <article class="panel-card map-card">
+                <div class="panel-head">
+                    <span class="section-kicker">Mapa epidemiológico</span>
+                    <h3>Distribuição por território</h3>
+                </div>
+                <div id="mapaBrasil" class="map-shell">
+                    <div class="map-ornament"></div>
+                    <div class="map-placeholder">
+                        <div class="map-icon">BR</div>
+                        <strong>Mapa do Brasil</strong>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <section class="row mb-4">
-            <div class="col-md-12">
-                <div class="card shadow-sm p-3 border-info">
-                    <h5>Módulo de Previsão de Tendências Futuras</h5>
-                    <div id="containerPrevisao">
-                        <p class="text-muted">Aguardando processamento do modelo de regressão...</p>
-                    </div>
-                </div>
-            </div>
+            </article>
         </section>
-    </div>
 
-    <footer class="text-center py-4 text-muted">
-        <small>Projeto Integrador III - Alunos TADS FAESA</small>
+        <section class="forecast-section">
+            <article class="panel-card forecast-card">
+                <div class="forecast-top">
+                    <div>
+                        <span class="section-kicker">Modelo preditivo</span>
+                        <h3>Previsão de tendências futuras</h3>
+                        <p>Área preparada para regressão linear, alertas de risco e resumo analítico.</p>
+                    </div>
+                    <div class="forecast-badge">Módulo de previsão</div>
+                </div>
+
+                <div id="containerPrevisao" class="forecast-content">
+                    <div class="forecast-placeholder-box">
+                        <span class="pulse-dot"></span>
+                        <p>Aguardando processamento do modelo de previsão...</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container-xl px-4 footer-inner">
+            <small>Projeto Integrador III • Alunos TADS - FAESA </small>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="charts.js"></script>
     <script src="app.js"></script>
+<script>
+</script>
 </body>
 </html>
