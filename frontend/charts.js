@@ -2,36 +2,52 @@
 // charts.js
 // charts.js - Responsável por desenhar o gráfico
 
+/* charts.js - Configuração visual dos gráficos */
+
 const ctx = document.getElementById('graficoTemporal').getContext('2d');
+let meuGrafico; // Variável global para controlar a instância do gráfico
 
-// Criamos a variável 'meuGrafico' fora para podermos atualizá-la depois
-let meuGrafico;
+function atualizarGraficoReal(labels, dados) {
+    // Se o gráfico já existir na tela, nós o "destruímos" antes de criar o novo
+    // Isso evita o erro de sobreposição (ficar um gráfico por cima do outro)
+    if (meuGrafico) {
+        meuGrafico.destroy();
+    }
 
-function inicializarGrafico(labels, dados) {
     meuGrafico = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: labels, // Ex: ['Jan', 'Fev', 'Mar']
+            labels: labels, 
             datasets: [{
-                label: 'Casos Notificados',
-                data: dados, // Ex: [500, 1200, 3000]
-                borderColor: 'rgb(75, 192, 192)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                label: 'Casos Confirmados (Série Histórica)',
+                data: dados, 
+                borderColor: '#0d6efd',
+                backgroundColor: 'rgba(13, 110, 253, 0.1)',
                 fill: true,
-                tension: 0.3
+                tension: 0.4,
+                pointRadius: 5,
+                pointHoverRadius: 8
             }]
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
-                title: {
-                    display: true,
-                    text: 'Tendência Epidemiológica da Dengue no Brasil'
+                legend: {
+                    position: 'top',
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        // Formata os números no eixo Y para o padrão brasileiro
+                        callback: function(value) {
+                            return value.toLocaleString('pt-BR');
+                        }
+                    }
                 }
             }
         }
     });
 }
-
-// Inicializa com dados fictícios para você e a Carine testarem o layout
-inicializarGrafico(['Jan', 'Fev', 'Mar', 'Abr', 'Mai'], [100, 400, 900, 1500, 800]);
