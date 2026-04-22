@@ -59,6 +59,20 @@ df_melt = df_melt[df_melt["ano"] != "Total"]
 
 # converter ano
 df_melt["ano"] = df_melt["ano"].astype(int)
+# Adicione este dicionário ao seu script Python
+mapa_ufs = {
+    11: 'RO', 12: 'AC', 13: 'AM', 14: 'RR', 15: 'PA', 16: 'AP', 17: 'TO',
+    21: 'MA', 22: 'PI', 23: 'CE', 24: 'RN', 25: 'PB', 26: 'PE', 27: 'AL', 28: 'SE', 29: 'BA',
+    31: 'MG', 32: 'ES', 33: 'RJ', 35: 'SP',
+    41: 'PR', 42: 'SC', 43: 'RS',
+    50: 'MS', 51: 'MT', 52: 'GO', 53: 'DF'
+}
+
+# Criar a coluna estado baseada nos 2 primeiros dígitos do código IBGE
+df_melt['estado'] = df_melt['codigo_ibge'].astype(str).str[:2].astype(int).map(mapa_ufs)
+
+# Salvar com a nova coluna para bater com o SQL
+df_melt.to_csv("dengue_tratado.csv", index=False)
 
 # salvar arquivo tratado na pasta scripts (fora da data_raw)
 df_melt.to_csv("dengue_tratado.csv", index=False)
