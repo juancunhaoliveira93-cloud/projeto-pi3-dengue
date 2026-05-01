@@ -1,4 +1,4 @@
-/* Onde Juan vai configurar os gráficos de série temporal e mapas.*/
+
 // charts.js
 // charts.js - Responsável por desenhar o gráfico
 

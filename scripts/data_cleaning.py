@@ -28,7 +28,7 @@ df = df.replace("-", 0)
 colunas_anos = df.columns[1:]
 df[colunas_anos] = df[colunas_anos].apply(pd.to_numeric)
 
-# separar código e nome (forma mais segura)
+# separar código e nome 
 df[["codigo_ibge", "municipio"]] = df["Municipio de notificacao"].str.extract(r"(\d+)\s+(.*)")
 
 # converter código
@@ -59,7 +59,7 @@ df_melt = df_melt[df_melt["ano"] != "Total"]
 
 # converter ano
 df_melt["ano"] = df_melt["ano"].astype(int)
-# Adicione este dicionário ao seu script Python
+# Dicionário
 mapa_ufs = {
     11: 'RO', 12: 'AC', 13: 'AM', 14: 'RR', 15: 'PA', 16: 'AP', 17: 'TO',
     21: 'MA', 22: 'PI', 23: 'CE', 24: 'RN', 25: 'PB', 26: 'PE', 27: 'AL', 28: 'SE', 29: 'BA',
@@ -107,8 +107,7 @@ plt.ticklabel_format(style='plain', axis='y')
 
 plt.grid()
 
-# Opcional: Salvar o gráfico como imagem para o relatório
-# plt.savefig("grafico_dengue_brasil.png")
+
 
 print("\nExibindo gráfico... Feche a janela do gráfico para encerrar o script.")
 plt.show()

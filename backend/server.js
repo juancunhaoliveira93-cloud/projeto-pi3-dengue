@@ -1,4 +1,4 @@
-/* server.js - BACKEND (Victor)
+/* server.js - BACKEND 
    Ajuste: Busca flexível por Estado/Município
 */
 
@@ -21,7 +21,7 @@ const pool = new Pool({
   port: process.env.DB_PORT || 5432,
 });
 
-// Rota de Casos (KPIs) - CORRIGIDA
+// Rota de Casos (KPIs) 
 app.get('/api/casos', async (req, res) => {
   const { ano, estado } = req.query;
 

@@ -1,8 +1,8 @@
-/* app.js - VERSÃO INTEGRADA (Juan Carlos)
+/* app.js - VERSÃO INTEGRADA 
    Correções: Conversão de Siglas, IDs do Mapa e Módulo de Previsão
 */
 
-// 1. Dicionário para traduzir a Sigla (Select) para o ID (SVG da Carine)
+// 1. Dicionário para traduzir a Sigla (Select) para o ID 
 const dicionarioEstados = {
     "AC": "Acre", "AL": "Alagoas", "AP": "Amapa", "AM": "Amazonas",
     "BA": "Bahia", "CE": "Ceara", "DF": "Distrito Federal", "ES": "Espirito Santo",
@@ -24,7 +24,7 @@ function atualizarModuloPrevisao(total) {
     const container = document.getElementById('containerPrevisao');
     if (!container) return;
 
-    // Lógica do Gustavo: Define tendência baseada no volume
+    // Define tendência baseada no volume
     const tendencia = total > 5000 ? "Alerta de Alta" : "Estabilidade";
     const cor = total > 5000 ? "#ff4d4d" : "#18b47a";
 
@@ -38,7 +38,7 @@ function atualizarModuloPrevisao(total) {
 }
 
 function limparMapa() {
-    // Busca pelo ID 'svgMapa' conforme o seu index.html
+    // Busca pelo ID 'svgMapa' conforme index.html
     const estados = document.querySelectorAll('#svgMapa path');
     estados.forEach(est => {
         est.style.fill = "#334155";
@@ -46,7 +46,7 @@ function limparMapa() {
     });
 }
 
-// 3. Lógica do Botão Filtrar
+// 3.Botão Filtrar
 document.getElementById('btnFiltrar').addEventListener('click', async () => {
     const periodo = document.getElementById('filtroPeriodo').value;
     const sigla = document.getElementById('filtroLocalidade').value;
