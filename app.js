@@ -1,6 +1,7 @@
 /* app.js - VERSÃO INTEGRADA 
    Correções: Conversão de Siglas, IDs do Mapa e Módulo de Previsão
 */
+let dadosGlobais = []; // Variável para armazenar o JSON carregado
 
 // 1. Dicionário para traduzir a Sigla (Select) para o ID 
 const dicionarioEstados = {
@@ -47,56 +48,64 @@ function limparMapa() {
 }
 
 // 3.Botão Filtrar
-document.getElementById('btnFiltrar').addEventListener('click', async () => {
-    const periodo = document.getElementById('filtroPeriodo').value;
+// 3. Evento do Botão Filtrar (AGORA BUSCANDO NO JSON LOCAL)
+document.getElementById('btnFiltrar').addEventListener('click', () => { // Pode remover o 'async' se quiser, não é mais obrigatório
+    const periodo = parseInt(document.getElementById('filtroPeriodo').value);
     const sigla = document.getElementById('filtroLocalidade').value;
 
     if (!periodo || !sigla) {
-        alert("Por favor, selecione o Ano e o Estado!");
+        alert("Selecione o Ano e o Estado!");
         return;
     }
 
     limparMapa();
 
-    try {
-        const resposta = await fetch(`http://localhost:3000/api/casos?ano=${periodo}&estado=${sigla}`);
-        const dados = await resposta.json();
+    // Em vez de fetch('http://localhost...'), usamos o .find no array que carregamos no onload
+    const registro = dadosGlobais.find(d => d.ano === periodo && d.estado === sigla);
 
-        if (dados && dados.total_casos !== null) {
-            const total = Number(dados.total_casos);
-            
-            // Cálculos Epidemiológicos
-            const incidencia = ((total / 150000) * 100000).toFixed(2);
-            const variacao = total > 4000 ? "+15.2%" : "-4.5%";
+    if (registro) {
+        const total = registro.casos;
+        
+        // Mantemos a sua lógica de cálculo epidemiológico
+        const incidencia = ((total / 150000) * 100000).toFixed(2); 
+        const variacao = total > 4000 ? "+15.2%" : "-4.5%";
 
-            atualizarInterface(total.toLocaleString('pt-BR'), incidencia, variacao);
-            atualizarModuloPrevisao(total);
+        atualizarInterface(total.toLocaleString('pt-BR'), incidencia, variacao);
+        atualizarModuloPrevisao(total);
 
-            // Pintar o Estado Correto no Mapa
-            const idEstado = dicionarioEstados[sigla];
-            const elementoSvg = document.getElementById(idEstado);
-            
-            if (elementoSvg) {
-                let corAlerta = total > 5000 ? "#ff4d4d" : (total > 1500 ? "#ff9f43" : "#18b47a");
-                elementoSvg.style.fill = corAlerta;
-            }
-        } else {
-            alert("Nenhum dado encontrado para esta seleção.");
-            atualizarInterface("0", "0.00", "0%");
+        // Pintar o Estado no Mapa
+        const idEstado = dicionarioEstados[sigla];
+        const elementoSvg = document.getElementById(idEstado);
+        
+        if (elementoSvg) {
+            // Lógica de cores baseada nos casos
+            let corAlerta = total > 5000 ? "#ff4d4d" : (total > 1500 ? "#ff9f43" : "#18b47a");
+            elementoSvg.style.fill = corAlerta;
         }
-    } catch (erro) {
-        console.error("Erro na integração:", erro);
-        alert("Erro ao conectar com o servidor do Victor!");
+    } else {
+        alert("Nenhum dado encontrado para esta seleção.");
+        atualizarInterface("0", "0.00", "0%");
     }
 });
 
 // 4. Inicialização do Gráfico (Série Temporal)
 window.onload = async () => {
     try {
-        const resposta = await fetch('http://localhost:3000/api/grafico');
-        const dadosApi = await resposta.json();
+        const resposta = await fetch('dados_dengue.json');
+        dadosGlobais = await resposta.json();
+        
+        // Calcular o total nacional por ano para o gráfico inicial
+        const anos = [...new Set(dadosGlobais.map(d => d.ano))].sort();
+        const totais = anos.map(ano => {
+            return dadosGlobais
+                .filter(d => d.ano === ano)
+                .reduce((sum, item) => sum + item.casos, 0);
+        });
+
         if (typeof atualizarGraficoReal === "function") {
-            atualizarGraficoReal(dadosApi.map(i => i.ano), dadosApi.map(i => i.total));
+            atualizarGraficoReal(anos, totais);
         }
-    } catch (e) { console.error("Erro ao carregar gráfico:", e); }
+    } catch (e) { 
+        console.error("Erro ao carregar os dados:", e); 
+    }
 };

@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 
 # =========================
 # 1. CARREGAR DADOS
@@ -71,11 +72,18 @@ mapa_ufs = {
 # Criar a coluna estado baseada nos 2 primeiros dígitos do código IBGE
 df_melt['estado'] = df_melt['codigo_ibge'].astype(str).str[:2].astype(int).map(mapa_ufs)
 
-# Salvar com a nova coluna para bater com o SQL
-df_melt.to_csv("dengue_tratado.csv", index=False)
+# 1. Agrupar os dados
+df_agrupado = df_melt.groupby(['ano', 'estado'])['casos'].sum().reset_index()
+df_agrupado['casos'] = df_agrupado['casos'].astype(int)
 
-# salvar arquivo tratado na pasta scripts (fora da data_raw)
-df_melt.to_csv("dengue_tratado.csv", index=False)
+# 2. Forçar o salvamento na pasta 'raiz' (uma pasta acima da pasta 'scripts')
+# Isso garante que ele sempre caia ao lado do index.html
+caminho_raiz = os.path.join(os.path.dirname(__file__), "..", "dados_dengue.json")
+
+# 3. Salvar o JSON
+df_agrupado.to_json(caminho_raiz, orient="records", indent=4, force_ascii=False)
+
+print(f"Sucesso! Arquivo gerado em: {os.path.abspath(caminho_raiz)}")
 
 # =========================
 # 4. ANÁLISE

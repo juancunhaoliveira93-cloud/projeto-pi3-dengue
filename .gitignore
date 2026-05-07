@@ -1,15 +1,17 @@
-# --- NODE.JS / BACKEND (VICTOR) ---
+# --- NODE.JS / BACKEND (Obsoleto no novo modelo) ---
 node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.env                  # ARQUIVO CRÍTICO: Onde o Victor guarda a senha do banco
+.env
 
-# --- PYTHON / DADOS (GUSTAVO) ---
-_pycache_/
+# --- PYTHON / DADOS (GUSTAVO E JUAN) ---
+__pycache__/
 *.py[cod]
 *$py.class
-scripts/data_raw/     # Ignora a pasta de lixo/bagunça do Gustavo
+scripts/data_raw/    # Ignora os arquivos brutos (originais) muito pesados
+
+# Ignorar arquivos de dados temporários ou pesados
 *.csv
 *.shp
 *.dbf
@@ -19,9 +21,13 @@ scripts/data_raw/     # Ignora a pasta de lixo/bagunça do Gustavo
 *.qmd
 
 # --- EXCEÇÕES IMPORTANTES ---
-# Permite que o arquivo tratado pelo Gustavo suba para o Victor poder usar
+# Garantir que o JSON gerado suba para o GitHub, pois o site precisa dele
+!dados_dengue.json
+
+# Se vocês ainda quiserem manter o CSV tratado (opcional)
 !scripts/dengue_tratado.csv
 
 # --- SISTEMA ---
 .DS_Store
 Thumbs.db
+.vscode/
