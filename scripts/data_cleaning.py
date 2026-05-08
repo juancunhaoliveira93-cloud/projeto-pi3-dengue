@@ -8,7 +8,7 @@ import os
 
 # Ajustado para ler da pasta data_raw
 df = pd.read_csv(
-    "data_raw/sinannet_cnv_denguebbr150315131_196_102_253.csv",
+    "scripts/data_raw/sinannet_cnv_denguebbr150315131_196_102_253.csv",
     sep=";",
     encoding="latin1",
     skiprows=3,
@@ -126,7 +126,7 @@ plt.show()
 
 try:
     pop2021 = pd.read_csv(
-        "data_raw/estimativa_dou_2021(Municípios).csv",
+        "scripts/data_raw/estimativa_dou_2021(Municípios).csv",
         sep=";",
         encoding="latin1",
         engine="python",
@@ -140,7 +140,7 @@ except FileNotFoundError:
 
 try:
     pop2024 = pd.read_csv(
-        "data_raw/estimativa_dou_2024(BRASIL E UFs).csv",
+        "scripts/data_raw/estimativa_dou_2024(BRASIL E UFs).csv",
         sep=";",
         encoding="latin1",
         engine="python",
