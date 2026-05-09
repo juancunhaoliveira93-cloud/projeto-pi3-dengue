@@ -47,44 +47,57 @@ function limparMapa() {
     });
 }
 
-// 3.Botão Filtrar
-// 3. Evento do Botão Filtrar (AGORA BUSCANDO NO JSON LOCAL)
-document.getElementById('btnFiltrar').addEventListener('click', () => { // Pode remover o 'async' se quiser, não é mais obrigatório
-    const periodo = parseInt(document.getElementById('filtroPeriodo').value);
+// Localize o evento do botão Filtrar no seu app.js e substitua por este:
+document.getElementById('btnFiltrar').addEventListener('click', () => {
     const sigla = document.getElementById('filtroLocalidade').value;
+    const periodoSelecionado = parseInt(document.getElementById('filtroPeriodo').value);
 
-    if (!periodo || !sigla) {
+    if (!sigla || !periodoSelecionado) {
         alert("Selecione o Ano e o Estado!");
         return;
     }
 
     limparMapa();
 
-    // Em vez de fetch('http://localhost...'), usamos o .find no array que carregamos no onload
-    const registro = dadosGlobais.find(d => d.ano === periodo && d.estado === sigla);
+    // 1. Lógica para os KPIs (Mantém o que você já tinha para o ano específico)
+    const registro = dadosGlobais.find(d => d.ano === periodoSelecionado && d.estado === sigla);
+
+    // 2. NOVA LÓGICA PARA O GRÁFICO: Filtrar o histórico de TODOS os anos desse estado
+    const historicoEstado = dadosGlobais
+        .filter(d => d.estado === sigla)
+        .sort((a, b) => a.ano - b.ano);
+
+    const labelsAnos = historicoEstado.map(d => d.ano);
+    const valoresCasos = historicoEstado.map(d => d.casos);
+    if (historicoEstado.length === 0) {
+        console.warn("Sem dados históricos para este estado.");
+        alert("Atenção: Não encontramos registros históricos para este estado no banco de dados.");
+        return; // Para a execução para não tentar desenhar um gráfico vazio
+    }
 
     if (registro) {
+        // Atualiza KPIs
         const total = registro.casos;
-        
-        // Mantemos a sua lógica de cálculo epidemiológico
-        const incidencia = ((total / 150000) * 100000).toFixed(2); 
+        const incidencia = ((total / 150000) * 100000).toFixed(2);
         const variacao = total > 4000 ? "+15.2%" : "-4.5%";
 
         atualizarInterface(total.toLocaleString('pt-BR'), incidencia, variacao);
         atualizarModuloPrevisao(total);
 
-        // Pintar o Estado no Mapa
+        // Atualiza o Gráfico com o histórico do estado
+        if (typeof atualizarGraficoReal === "function") {
+            atualizarGraficoReal(labelsAnos, valoresCasos);
+        }
+
+        // Pintar o mapa
         const idEstado = dicionarioEstados[sigla];
         const elementoSvg = document.getElementById(idEstado);
-        
         if (elementoSvg) {
-            // Lógica de cores baseada nos casos
             let corAlerta = total > 5000 ? "#ff4d4d" : (total > 1500 ? "#ff9f43" : "#18b47a");
             elementoSvg.style.fill = corAlerta;
         }
     } else {
         alert("Nenhum dado encontrado para esta seleção.");
-        atualizarInterface("0", "0.00", "0%");
     }
 });
 
