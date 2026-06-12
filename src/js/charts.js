@@ -1,4 +1,3 @@
-
 // charts.js
 // charts.js - Responsável por desenhar o gráfico
 
