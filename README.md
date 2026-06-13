@@ -34,15 +34,15 @@ Para que o script funcione corretamente, você deve ter o **Python 3.x** instala
 Você pode instalar todas as dependências executando o seguinte comando no seu terminal:
 ```bash
 pip install pandas matplotlib
-
+```
 2. Estrutura de Arquivos Necessária
 O script foi desenhado para buscar arquivos locais específicos de dados brutos (Data Raw). Certifique-se de manter os dados brutos dentro da pasta “data_raw/“que deve está dentro da pasta “scripts/"
 
 3. Como Executar o Script
 Com as dependências instaladas e os arquivos brutos em suas respectivas pastas, abra o seu terminal ou prompt de comando na raiz do projeto e execute:
-
+```bash
 python data_cleaning.py
-
+```
 4. O que o Script Faz (Fluxo de Execução)
 Quando você executa o comando, o script realiza as seguintes operações de forma sequencial:
 
