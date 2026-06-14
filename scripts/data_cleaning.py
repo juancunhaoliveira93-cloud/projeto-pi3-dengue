@@ -117,8 +117,10 @@ plt.grid()
 
 
 
-print("\nExibindo gráfico... Feche a janela do gráfico para encerrar o script.")
-plt.show()
+#print("\nExibindo gráfico... Feche a janela do gráfico para encerrar o script.")
+#plt.show()
+print("\nSalvando gráfico de validação...")
+plt.savefig('grafico_validacao.png')
 
 # ================================================================
 # LEITURA DE POPULAÇÃO (Ajustado para data_raw)
